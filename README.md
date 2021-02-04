@@ -130,6 +130,43 @@ This endpoint is called by business and co-admin users to automate the ordering 
         "product_weight": <package_weight>
     }
 
+
+**sample response 1** : 
+ 
+    {
+        "success": true,
+        "delivery_response": {
+            "delivery_partner_response": {
+                [
+                    <delevery_partner_responses>
+                ]
+            }
+        },
+        "message": "Order processed successfully",
+        "status": 200,
+        "order_details": {
+            "id": 76,
+            "order_id": "bohon_order_uxmUAeFYVEdVZNEetCls",
+            "date_ordered": "2021-02-04T07:43:46.767149Z",
+            "is_complete": true,
+            "transaction_id": "1612428626.914945",
+            "order_option": null,
+            "calculated_price": null,
+            "is_paid": false,
+            "customer": 3,
+            "delivery_partner_data": 3,
+            "poc_data": 2
+        }
+    }
+
+**sample response 2** : 
+
+    {
+        "success": false,
+        "message": "Failed to create order",
+        "status": 400
+    }
+
 ## All Order Info: **/api/orders**
     GET: http://bohon.herokuapp.com/api/orders
 Once this endpoint is called it will give all the order details that the currently logged in user have made till date. The JSON Web Token also should be passed as the previously mentioned way in **authorization header**.
