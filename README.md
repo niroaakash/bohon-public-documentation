@@ -118,16 +118,16 @@ This endpoint is called by business and co-admin users to automate the ordering 
         
     {
         "pickup": {
-                "location":"delhi" ,
-                "vendor_name": "sandipan",
-                "contact_no": 1231
+                "location": <pickup_location> ,
+                "vendor_name": <pickup_vendor's_name>,
+                "contact_no": <pickup_vendor's_contact_no>
         },
         "drop": {
-                "location":"Kolkata" ,
-                "vendor_name": "swiggy",
-                "contact_no": 4321
+                "location":<drop_location> ,
+                "vendor_name": <drop_vendor's_name>,
+                "contact_no": <drop_vendor's_contact_no>
         },
-        "product_weight": 15
+        "product_weight": <package_weight>
     }
 
 ## All Order Info: **/api/orders**
@@ -137,3 +137,4 @@ Once this endpoint is called it will give all the order details that the current
 **request header**:
 
     Authorization: Bearer <JSON_web_token> 
+
