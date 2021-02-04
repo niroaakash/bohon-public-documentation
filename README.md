@@ -1,23 +1,4 @@
-# Bohon Backend
-**Made with *Django* and *Django Rest Framework***
-
-## Steps to run inside local environmet
-*   Clone the repository
-*   Install the dependencies by executing the command:
-
-        pip install -r requirements.txt
-*   Change the current directory:
-
-        cd bohon
-*   Install dependencies:
-
-        pip install -r requirements.txt
-*   To run the server:
-
-        python manage.py runserver 
-
-*   open [localhost](http://localhost:8000) to see the server running.
-
+# Bohon API Documentation
 
 ## Available End points:
 
@@ -45,15 +26,38 @@
   *   Save Wallet Information on Backend [check here](http://bohon.herokuapp.com/api/wallet/save-data/)
 
 
-## Additional Info for Frontend:
-### 1. Google SignUp:
-Once this endpoint is called, this will redirect the user to authorize with google and if authorization successfully done then redirects back to Dashboard page.
+## API Documentation:
 
-### 2. Signup: 
-Once This endpoint is called it will create the user with the provided Information from the request Body
+### New user Signup: 
+Once This endpoint is called it will create the user with the provided Information from the request Body.
+
+**required parameters in request body** : 
+        
+        {
+                'username': <user_name>, 
+                'first_name': <fist_name>, 
+                'last_name': <last_name>, 
+                'email': <email>, 
+                'password': <password>, 
+                'password2': <confirm_password>, 
+                'user_type': <user_type> e.g <'Basic User' or 'Business User' or 'Co-Admin Editor'>
+        }
 
 ### 3. Login:
 Once this endpoint is called it will authorize the user with the *username* and *password* provided in the request body and is authorization is done successfully then it will send a ***JSON Web Token*** in response.
+
+**required parameters in request body** : 
+        
+        {
+                'username': <user_name>,
+                'password': <password> 
+        }
+**response**:
+
+        {
+                'username': <user_name>,
+                'password': <password> 
+        }
 
 ### 4. Logout:
 This endpoint is called to logout user from backend.
@@ -127,32 +131,3 @@ This endpoint is called to Save the Payment wallet Information in Bohon Backend 
                 "payment_id": ,
                 "amount": , 
         }
-
-## Todo:
-* Order Processing 
-* payment wallet integration
-
-
-
-## Personalized Discussion:
-We can Implement Payment Wallet both from front-end or from back-end
-But there are some restrictions to be implemented on back-end
-Also it's suitable for front-end and easy to implement.
-Also as paymet process is not a part of automation, implementing in front-end is quite meaningful.
-
-## Process to Integrate Razorpay Wallet with API Reference:
-1. [Create Customer](https://razorpay.com/docs/customers/#api-actions)
-2. [Create Order](https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-1-create-an-order-from-your-server)
-3. [Checkout (frontend)](https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-2-pass-order-id-and-other-options)
-4. [Verify Signature](https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-2-pass-order-id-and-other-options) (need backend support))
-5. [Capture Payment](https://razorpay.com/docs/api/payments/#capture-a-payment)
-6. [Transfer payment](https://razorpay.com/docs/wallet/api-reference/#transfer-a-payment)
-7. Get the success Response
-
-## Respective API References for wallet integration
-1. https://razorpay.com/docs/customers/#api-actions
-2. https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-1-create-an-order-from-your-server
-3. https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-2-pass-order-id-and-other-options
-4. https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-2-pass-order-id-and-other-options (need backend support)
-5. https://razorpay.com/docs/api/payments/#capture-a-payment
-6. https://razorpay.com/docs/wallet/api-reference/#transfer-a-payment
