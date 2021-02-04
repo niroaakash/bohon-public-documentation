@@ -1,4 +1,4 @@
-# Bohon API Documentation
+# Bohon API Integration
 
 ## Available End points:
 
@@ -17,7 +17,7 @@
   *   Create Bohon Order [check here](http://bohon.herokuapp.com/api/order/create/)
   *   Process Bohon Order [check here](http://bohon.herokuapp.com/api/order/process/)
   *   Generate Bohon Order (**Automation**) [check here](http://bohon.herokuapp.com/api/order/generate/)
-  *   Get Incomplete Order Informations [check here](http://bohon.herokuapp.com/api/orders)
+  *   Get Order Informations [check here](http://bohon.herokuapp.com/api/orders)
 
 * ### Payment APIs:
   *   Create Payment [check here](http://bohon.herokuapp.com/api/order/pay/)
@@ -26,108 +26,114 @@
   *   Save Wallet Information on Backend [check here](http://bohon.herokuapp.com/api/wallet/save-data/)
 
 
-## API Documentation:
+#
+# API Documentation:
 
-### New user Signup: 
+## New user Signup: **/api/auth/register/** 
+    POST: https://bohon.herokuapp.com/api/auth/register/
 Once This endpoint is called it will create the user with the provided Information from the request Body.
 
 **required parameters in request body** : 
         
-        {
-                'username': <user_name>, 
-                'first_name': <fist_name>, 
-                'last_name': <last_name>, 
-                'email': <email>, 
-                'password': <password>, 
-                'password2': <confirm_password>, 
-                'user_type': <user_type> e.g <'Basic User' or 'Business User' or 'Co-Admin Editor'>
-        }
+    {
+        "username": <user_name>, 
+        "first_name": <fist_name>, 
+        "last_name": <last_name>, 
+        "email": <email>, 
+        "password": <password>, 
+        "password2": <confirm_password>, 
+        "user_type": <user_type> e.g <"BASIC" or "BUSINESS" or "CO-ADMIN">
+    }
+    
+**response**:
 
-### 3. Login:
+    {
+        "user": {
+            "id": <id>,
+            "username": <given_user_name>,
+            "email": <given_email>,
+            "user_type": <user_type>
+        },
+        "token": <random_token>,
+        "message": <message> e.g <"User Created Successfully">,
+        "status code": <status_code> e.g <201>
+    }
+
+## Login: **/api/auth/login/**:
+    POST: https://bohon.herokuapp.com/api/auth/login/
 Once this endpoint is called it will authorize the user with the *username* and *password* provided in the request body and is authorization is done successfully then it will send a ***JSON Web Token*** in response.
 
 **required parameters in request body** : 
         
-        {
-                'username': <user_name>,
-                'password': <password> 
-        }
+    {
+        "username": <user_name>,
+        "password": <password> 
+    }
+
 **response**:
 
-        {
-                'username': <user_name>,
-                'password': <password> 
-        }
+    {
+        "success": <boolean> e.g <True or False>,
+        "status code": <status_code> e.g <200>,
+        "message": <message> e.g <"User logged in  successfully">,
+        "user": {
+            "id": <id>,
+            "username": <given_user_name>,
+            "email": <given_email>,
+            "user_type": <user_type>
+        },
+        "token": <JSON_web_token> 
+    }
 
-### 4. Logout:
-This endpoint is called to logout user from backend.
+## Logout: **/api/auth/logout/**
+    GET: https://bohon.herokuapp.com/api/auth/logout/
+This endpoint is called to logout user from Bohon.
 
-### 5. User Info: 
-While calling this endpint the JSON Web Token should be passed in ***Authorization-Header*** in the format:
+## User Info: 
+    GET: http://bohon.herokuapp.com/api/auth/user
+While calling this endpint the JSON Web Token should be passed in ***Authorization-Header*** in the following format in the request header. If the token is valid then it will give the information of the currently logged user.
 
-        Authorization: Bearer <token> 
-If the token is valid then it will give the information of the currently logged user.
+**request header**:
 
-### 6. Incomplete / Live Order Info:
-Once this endpoint is called it will give all the incomplete order details that the currently logged in user have made as response. The JSON Web Token also should be passed as the previously mentioned way.
-This information is need to fill the Order Section of the Dashboard
+    Authorization: Bearer <JSON_web_token> 
 
-### 7. Product Info: (optional):
-Once this endpoint is called this will give all the Products details that the currently logged in user have ordered to transfer, as response. The JSON Web Token also should be passed as the previously mentioned way.
-This information is need to fill the Products Section of the Dashboard.
+**response**:
 
-### 8. Storing Products Calculating Price:
-Once this endpoint is called this will store the product details on database with the data provided in *request body* and calculate the price.
+    {
+        "id": <id>,
+        "username": <given_user_name>,
+        "email": <given_email>,
+        "user_type": <user_type>
+    }
 
-### 9. Create Bohon Order API:
-This endpoint is called to Initiate an Order. 
+## Automated Order Generation API (for business and co-admin users): **/api/order/generate/**
+    POST: http://bohon.herokuapp.com/api/order/generate/
+This endpoint is called by business and co-admin users to automate the ordering process. Just the user first should be a logged in user, after login user can call this APIs with the order details in the request body. The JSON Web Token also should be passed as the previously mentioned way in **authorization header**.
 
-### 10. Process Bohon Order API:
-This endpoint is called to Process an Initiated Order. 
+**request header**:
 
-### 11. Automated Order Generation (for business and co-admin users) API:
-This endpoint is called by business and co-admin users to automate the ordering process. Just the user first should be a logged in user, after login user can call this APIs with the order details(not specified yet). 
+    Authorization: Bearer <JSON_web_token> 
+
 **required parameters in request body** : 
         
-        {
-                "pickup": {
-                        "location":"delhi" ,
-                        "vendor_name": "sandipan",
-                        "contact_no": 1231
-                },
-                "drop": {
-                        "location":"Kolkata" ,
-                        "vendor_name": "swiggy",
-                        "contact_no": 4321
-                },
-                "product_weight": 15
-        }
+    {
+        "pickup": {
+                "location":"delhi" ,
+                "vendor_name": "sandipan",
+                "contact_no": 1231
+        },
+        "drop": {
+                "location":"Kolkata" ,
+                "vendor_name": "swiggy",
+                "contact_no": 4321
+        },
+        "product_weight": 15
+    }
 
-### 12. Create Payment API (Under development): (frontend integration)
-This endpoint is called to Initiate a payment on backend (through Razorpay). 
+## All Order Info: **/api/orders**
+    GET: http://bohon.herokuapp.com/api/orders
+Once this endpoint is called it will give all the order details that the currently logged in user have made till date. The JSON Web Token also should be passed as the previously mentioned way in **authorization header**.
 
-### 13. Create Payment Wallet API (Under development): (frontend integration)
-This endpoint is called to automate the *Payment Customer creation* and *Payment Order Creation* process on backend (through Razorpay).
+**request header**:
 
-### 14. Verify Payment API:
-This endpoint is called to Verify the payment, done through RazorPay Payment Gateway.
-**required parameters in request body** : 
-        
-        {
-                "razorpay_order_id": ,
-                "razorpay_payment_id": , 
-                "razorpay_signature": 
-        }
-
-
-### 15. Save Payment Wallet Data API:
-This endpoint is called to Save the Payment wallet Information in Bohon Backend in order to avoid recreation of wallet everytime payment transfer done.
-**required parameters in request body** : 
-        
-        {
-                "cust_id": ,
-                "order_id": ,
-                "gstin": ,
-                "payment_id": ,
-                "amount": , 
-        }
+    Authorization: Bearer <JSON_web_token> 
