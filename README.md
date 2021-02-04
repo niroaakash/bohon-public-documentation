@@ -1,32 +1,6 @@
-# Bohon API Integration
-
-## Available End points:
-
-* ### Authorization APIs: 
-  *   SignUp [check here](http://bohon.herokuapp.com/api/auth/register/)
-  *   SignUp with Google [check here](http://bohon.herokuapp.com/api/auth/google/)
-  *   Logout [click here](http://bohon.herokuapp.com/api/auth/logout/)
-  *   Login [check here](http://bohon.herokuapp.com/api/auth/login/)
-  *   User Info [check here](http://bohon.herokuapp.com/api/auth/user)
-
-* ### Product APIs:
-    *  Get Saved Product Informations [check here](http://bohon.herokuapp.com/api/products)
-    *   Store Product Info and Calculate Price [check here](http://bohon.herokuapp.com/api/products/store)
-
-* ### Order APIs:
-  *   Create Bohon Order [check here](http://bohon.herokuapp.com/api/order/create/)
-  *   Process Bohon Order [check here](http://bohon.herokuapp.com/api/order/process/)
-  *   Generate Bohon Order (**Automation**) [check here](http://bohon.herokuapp.com/api/order/generate/)
-  *   Get Order Informations [check here](http://bohon.herokuapp.com/api/orders)
-
-* ### Payment APIs:
-  *   Create Payment [check here](http://bohon.herokuapp.com/api/order/pay/)
-  *   Create Payment Wallet [check here](http://bohon.herokuapp.com/api/wallet/create/)
-  *   Verify Payment [check here](http://bohon.herokuapp.com/api/order/pay/verify/)
-  *   Save Wallet Information on Backend [check here](http://bohon.herokuapp.com/api/wallet/save-data/)
+# Bohon API 
 
 
-#
 # API Documentation:
 
 ## New user Signup: **/api/auth/register/** 
