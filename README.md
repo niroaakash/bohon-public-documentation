@@ -1,10 +1,13 @@
 # Bohon API 
+Bohon API Integration for Business and Co-Admin Users. 
 
+This documentation is mainly focused on ***integrating the Automation process***.
 
 # API Documentation:
 
 ## New user Signup: **/api/auth/register/** 
-    POST: https://bohon.herokuapp.com/api/auth/register/
+POST: https://bohon.herokuapp.com/api/auth/register/
+
 Once This endpoint is called it will create the user with the provided Information from the request Body.
 
 **required parameters in request body** : 
@@ -34,7 +37,8 @@ Once This endpoint is called it will create the user with the provided Informati
     }
 
 ## Login: **/api/auth/login/**:
-    POST: https://bohon.herokuapp.com/api/auth/login/
+POST: https://bohon.herokuapp.com/api/auth/login/
+
 Once this endpoint is called it will authorize the user with the *username* and *password* provided in the request body and is authorization is done successfully then it will send a ***JSON Web Token*** in response.
 
 **required parameters in request body** : 
@@ -60,11 +64,13 @@ Once this endpoint is called it will authorize the user with the *username* and 
     }
 
 ## Logout: **/api/auth/logout/**
-    GET: https://bohon.herokuapp.com/api/auth/logout/
+GET: https://bohon.herokuapp.com/api/auth/logout/
+
 This endpoint is called to logout user from Bohon.
 
 ## User Info: 
-    GET: http://bohon.herokuapp.com/api/auth/user
+GET: http://bohon.herokuapp.com/api/auth/user
+
 While calling this endpint the JSON Web Token should be passed in ***Authorization-Header*** in the following format in the request header. If the token is valid then it will give the information of the currently logged user.
 
 **request header**:
@@ -81,7 +87,8 @@ While calling this endpint the JSON Web Token should be passed in ***Authorizati
     }
 
 ## Automated Order Generation API (for business and co-admin users): **/api/order/generate/**
-    POST: http://bohon.herokuapp.com/api/order/generate/
+POST: http://bohon.herokuapp.com/api/order/generate/
+
 This endpoint is called by business and co-admin users to automate the ordering process. Just the user first should be a logged in user, after login user can call this APIs with the order details in the request body. The JSON Web Token also should be passed as the previously mentioned way in **authorization header**.
 
 **request header**:
@@ -142,7 +149,8 @@ This endpoint is called by business and co-admin users to automate the ordering 
     }
 
 ## All Order Info: **/api/orders**
-    GET: http://bohon.herokuapp.com/api/orders
+GET: http://bohon.herokuapp.com/api/orders
+
 Once this endpoint is called it will give all the order details that the currently logged in user have made till date. The JSON Web Token also should be passed as the previously mentioned way in **authorization header**.
 
 **request header**:
