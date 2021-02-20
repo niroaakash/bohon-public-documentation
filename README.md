@@ -3,6 +3,8 @@ Bohon API Integration for Business and Co-Admin Users.
 
 This documentation is mainly focused on ***integrating the Automation process***.
 
+For Bohon-Picker Partner Integration, Visit 
+
 # API Documentation:
 
 ## New user Signup: **/api/auth/register/** 
@@ -175,3 +177,131 @@ Once this endpoint is called it will give all the order details that the current
 
     Authorization: Bearer <JSON_web_token> 
 
+
+## Picker API:
+
+## Verify OTP from Vendor: **/api/picker/order/confirm/<order_id>/vendor/**
+GET: https://bohonapi-staging.herokuapp.com/api/picker/order/confirm/<order_id>/vendor/
+
+Once This endpoint is called with the vendor otp received from the order response, this will verify the vendor's otp in the backend and send the response. 
+
+**request header**:
+
+    Authorization: Bearer <JSON_web_token> 
+
+**required parameters in request body** : 
+
+    {
+        "vendor_otp": "332721"
+    }
+
+
+**sample response 1** : 
+ 
+    {
+        "success": true,
+        "message": "OTP is valid",
+        "order_details": {
+            "id": 23,
+            "order_id": "bohon_order_twsErSedYB",
+            "date_ordered": "2021-02-17T19:18:10.753807Z",
+            "is_complete": false,
+            "transaction_id": "1613589491.029451",
+            "order_option": null,
+            "calculated_price": null,
+            "is_paid": false,
+            "customer_otp": "217459",
+            "vendor_otp": "332721",
+            "order_confirmation_value": 5,
+            "order_status": "Dispatched",
+            "is_confirmed": false,
+            "customer": 2,
+            "delivery_partner_data": 1,
+            "poc_data": 2
+        },
+        "status": 200
+    }
+
+**sample response 2** : 
+
+    {
+        "success": false,
+        "message": "Order already Verified",
+        "status": 404
+    }
+
+**sample response 3** : 
+
+    {
+        "success": false,
+        "message": "OTP is invalid",
+        "status": 404
+    }
+
+
+## Verify OTP from Customer: **/api/picker/order/confirm/<order_id>/vendor/**
+GET: https://bohonapi-staging.herokuapp.com/api/picker/order/confirm/<order_id>/customer/
+
+Once This endpoint is called with the customer otp received from the order response, this will verify the customer's otp in the backend and send the response. 
+
+**request header**:
+
+    Authorization: Bearer <JSON_web_token> 
+
+**required parameters in request body** : 
+
+    {
+        "customer_otp": "217459"
+    }
+
+
+**sample response 1** : 
+ 
+    {
+        "success": true,
+        "message": "OTP is valid",
+        "order_details": {
+            "id": 23,
+            "order_id": "bohon_order_twsErSedYB",
+            "date_ordered": "2021-02-17T19:18:10.753807Z",
+            "is_complete": true,
+            "transaction_id": "1613589491.629351",
+            "order_option": null,
+            "calculated_price": null,
+            "is_paid": false,
+            "customer_otp": "217459",
+            "vendor_otp": "332721",
+            "order_confirmation_value": 10,
+            "order_status": "Delivered",
+            "is_confirmed": false,
+            "customer": 2,
+            "delivery_partner_data": 1,
+            "poc_data": 2
+        },
+        "status": 200
+    }
+
+**sample response 2** : 
+
+    {
+        "success": false,
+        "message": "Order already Verified and Completed",
+        "status": 404
+    }
+
+**sample response 3** : 
+    
+    {
+        "success": false,
+        "message": "OTP is invalid",
+        "status": 404
+    }
+
+**sample response 3** : 
+
+    {
+        "success": false,
+        "message": "Vendor's OTP is not confirmed", 
+        "status": 404
+    } 
+api/picker/order/confirm/<str:order_id>/customer/
